@@ -1,14 +1,30 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
-export default function Home({ posts }) {
-  console.log(posts)
+const Home = ({ posts }) => {
   return (
-    <div className={styles.container}>
+    <div className="mt-5">
       {posts.map((post, index) => (
-        <h3 key={index}>{post.frontMatter.title}</h3>
+        <Link href={"/blog/" + post.slug}>
+          <div className="card mb-3 pointer" key={index} style={{maxWidth: "540px"}}>
+            <div className="row g-0">
+              <div className="col-md-8">
+                <div className="card-body">
+                  <h5 className="card-title">{post.frontMatter.title}</h5>
+                  <p className="card-text">{post.frontMatter.description}</p>
+                  <p className="card-text">
+                    <small className="text-muted">{post.frontMatter.date}</small>
+                  </p>
+                </div>
+              </div>
+              <div className="col-md-4 m-auto">
+                <img src={post.frontMatter.thumbnailUrl} className="img-fluid rounded-start" alt="..." />
+              </div>
+            </div>
+          </div>
+        </Link>
       ))}
     </div>
   )
@@ -17,13 +33,14 @@ export default function Home({ posts }) {
 export const getStaticProps = async () => {
   const files = fs.readdirSync(path.join('posts'))
 
-  console.log(files)
-
   const posts = files.map(filename => {
     const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8')
     const { data: frontMatter } = matter(markdownWithMeta)
 
-    return { frontMatter }
+    return {
+      frontMatter,
+      slug: filename.split('.')[0]
+    }
   })
 
   return {
@@ -32,3 +49,5 @@ export const getStaticProps = async () => {
     }
   }
 }
+
+export default Home
