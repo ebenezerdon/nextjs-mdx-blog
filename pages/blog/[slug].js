@@ -3,13 +3,19 @@ import { MDXRemote } from 'next-mdx-remote'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { docco } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
+
 import { Nav, Button } from '../../components'
+
+const components = { Nav, Button, SyntaxHighlighter }
+const data = { docco }
 
 const PostPage = ({ frontMatter: { title, date }, mdxSource }) => {
   return (
     <div className="mt-4">
       <h1>{title}</h1>
-      <MDXRemote {...mdxSource} components={{ Nav, Button }}/>
+      <MDXRemote {...mdxSource} components={components} scope={data}/>
     </div>
   )
 }
