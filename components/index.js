@@ -1,4 +1,4 @@
 import Nav from './Nav'
-import Post from './Post'
+import Button from './Button'
 
-export { Nav, Post }
+export { Nav, Button }

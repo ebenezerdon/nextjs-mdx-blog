@@ -1,11 +1,11 @@
-import { MDXProvider } from '@mdx-js/react'
+// import { MDXProvider } from '@mdx-js/react'
 import '../styles/globals.css'
 import Nav from '../components/Nav'
 import Head from 'next/head'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <MDXProvider>
+    <>
       <Head>
         <title>Next and MDX Blog</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
         </main>
       </div>
-    </MDXProvider>
+    </>
   )
 }
 
