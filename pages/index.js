@@ -27,6 +27,7 @@ const Home = ({ posts }) => {
                   alt="thumbnail"
                   width={500}
                   height={400}
+                  objectFit="cover"
                 />
               </div>
             </div>
